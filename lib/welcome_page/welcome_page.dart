@@ -83,7 +83,7 @@ class WelcomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       splashFactory: NoSplash.splashFactory,
                       highlightColor: const Color(0xff09141a),
-                      child: const Row(
+                      child:  Row(
                         children: [
                           Icon(Icons.language),
                         ],
