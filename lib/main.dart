@@ -21,7 +21,7 @@ class MainApp extends StatelessWidget {
             primary: Colors.white,
             brightness: Brightness.dark),
       ),
-      home: WelcomePage(),
+      home: const HomePage(),
     );
   }
 }
