@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
-import 'package:whatsapp_clone/welcome_page/widgets/custom_elevated_button.dart';
-import 'package:whatsapp_clone/welcome_page/widgets/language_button.dart';
-import 'package:whatsapp_clone/welcome_page/widgets/privacy_and_terms.dart';
+import 'package:whatsapp_clone/common/widgets/custom_elevated_button.dart';
+import 'package:whatsapp_clone/feature/auth/pages/login_page.dart';
+import 'package:whatsapp_clone/feature/welcome/widgets/language_button.dart';
+import 'package:whatsapp_clone/feature/welcome/widgets/privacy_and_terms.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -31,7 +33,7 @@ class WelcomePage extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'Welcome to Whatsapp',
+                  AppLocalizations.of(context)!.welcomeTitle,
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge!
@@ -39,7 +41,11 @@ class WelcomePage extends StatelessWidget {
                 ),
                 const PrivacyAndTerms(),
                 CustomElevatedButton(
-                    onPressed: () {}, text: 'AGREE AND CONTINUE'),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const LoginPage()));
+                    },
+                    text: 'AGREE AND CONTINUE'),
                 const SizedBox(height: 50),
                 const LanguageButton(),
               ],

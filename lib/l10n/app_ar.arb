@@ -1,3 +1,6 @@
 {
-    "language": "العربية"
+  "appLang": "لغة البرنامج",
+  "language": "العربية",
+  "loginPageTitle": "ادخل رقم هاتفك ",
+  "welcomeTitle": "اهلا بك الى Whatsapp"
 }

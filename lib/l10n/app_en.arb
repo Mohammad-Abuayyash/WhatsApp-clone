@@ -1,6 +1,9 @@
 {
-    "language": "English",
-    "@language":{
-        "description": "The current Language"
-    }
+  "@language": {
+    "description": "The current Language"
+  },
+  "appLang": "App Language",
+  "language": "English",
+  "loginPageTitle": "Enter your phone number",
+  "welcomeTitle": "Welcome to Whatsapp"
 }

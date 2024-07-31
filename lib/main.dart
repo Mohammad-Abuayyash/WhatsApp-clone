@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/common/providers/locale_provider.dart';
 import 'package:whatsapp_clone/common/theme/dark_theme.dart';
 import 'package:whatsapp_clone/common/theme/light_theme.dart';
+import 'package:whatsapp_clone/feature/auth/pages/login_page.dart';
 import 'package:whatsapp_clone/home_page/home_page.dart';
-import 'package:whatsapp_clone/welcome_page/screens/welcome_page.dart';
+import 'package:whatsapp_clone/feature/welcome/screens/welcome_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightTheme(),
       darkTheme: darkTheme(),
       themeMode: ThemeMode.system,
-      // supportedLocales: L10n.all,
-      locale: const Locale('en'),
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: ref.watch(localeProvider),
       localizationsDelegates: const [
-        // AppLocalization.delegate,
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
-      home: const WelcomePage(),
+      home: const LoginPage(),
     );
   }
 }
