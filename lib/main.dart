@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone/common/theme/dark_theme.dart';
+import 'package:whatsapp_clone/common/theme/light_theme.dart';
 import 'package:whatsapp_clone/home_page/home_page.dart';
-import 'package:whatsapp_clone/welcome_page/welcome_page.dart';
+import 'package:whatsapp_clone/welcome_page/screens/welcome_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,15 +15,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.white,
-            background: const Color.fromRGBO(25, 25, 25, 0.5),
-            primary: Colors.white,
-            brightness: Brightness.dark),
-      ),
-      home: HomePage(),
+      theme: lightTheme(),
+      darkTheme: darkTheme(),
+      themeMode: ThemeMode.system,
+      home: const WelcomePage(),
     );
   }
 }
