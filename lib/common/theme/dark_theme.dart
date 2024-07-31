@@ -6,5 +6,25 @@ ThemeData darkTheme() {
 
   return base.copyWith(
     scaffoldBackgroundColor: COLORS.backgroundDark,
+    colorScheme: const ColorScheme.dark(
+        background: COLORS.backgroundDark, brightness: Brightness.dark),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: COLORS.greenDark,
+        foregroundColor: COLORS.backgroundDark,
+        splashFactory: NoSplash.splashFactory,
+        elevation: 0,
+        shadowColor: Colors.transparent,
+      ),
+    ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: COLORS.backgroundDark,
+      modalBackgroundColor: COLORS.backgroundDark,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+      ),
+    ),
   );
 }
