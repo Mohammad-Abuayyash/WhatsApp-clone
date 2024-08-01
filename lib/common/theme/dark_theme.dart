@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
 
 ThemeData darkTheme() {
@@ -8,6 +9,12 @@ ThemeData darkTheme() {
     scaffoldBackgroundColor: COLORS.backgroundDark,
     colorScheme: const ColorScheme.dark(
         background: COLORS.backgroundDark, brightness: Brightness.dark),
+    appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: COLORS.greenDark,

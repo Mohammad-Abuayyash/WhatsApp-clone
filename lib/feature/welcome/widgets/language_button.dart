@@ -121,11 +121,11 @@ class _LanguageButtonState extends ConsumerState<LanguageButton> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.language, color: COLORS.greenDark),
+              const Icon(Icons.language, color: COLORS.greenDark),
               const SizedBox(width: 10),
               Text(selectedLanguage),
               const SizedBox(width: 10),
-              Icon(Icons.keyboard_arrow_down, color: COLORS.greenDark),
+              const Icon(Icons.keyboard_arrow_down, color: COLORS.greenDark),
             ],
           ),
         ),

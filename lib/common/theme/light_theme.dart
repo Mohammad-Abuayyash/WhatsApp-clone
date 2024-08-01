@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
+import 'package:flutter/services.dart';
 
 ThemeData lightTheme() {
   final ThemeData base = ThemeData.light();
@@ -8,6 +9,12 @@ ThemeData lightTheme() {
     scaffoldBackgroundColor: COLORS.backgroundLight,
     colorScheme: const ColorScheme.light(
       background: COLORS.backgroundLight,
+    ),
+    appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
