@@ -146,9 +146,10 @@ class _LoginPageState extends State<LoginPage> {
                   phoneNumber: fullPhoneNumber,
                   verificationCompleted:
                       (PhoneAuthCredential credential) async {
+                    debugPrint('before navigating');
+
                     await _auth.signInWithCredential(credential);
                     await _auth.signInWithPhoneNumber(fullPhoneNumber);
-                    debugPrint('before navigating');
 
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
@@ -159,6 +160,8 @@ class _LoginPageState extends State<LoginPage> {
                   verificationFailed: (FirebaseAuthException e) {
                     if (e.code == 'invalid-phone-number') {
                       debugPrint('The provided phone number is not valid.');
+                    } else {
+                      debugPrint(e.toString());
                     }
                     // Handle other errors
                   },
