@@ -35,7 +35,7 @@ class MainApp extends ConsumerWidget {
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+        GlobalWidgetsLocalizations.delegate,
       ],
       home: const LoginPage(),
     );

@@ -21,9 +21,12 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController phoneNumberController;
 
   final _auth = FirebaseAuth.instance;
-  final String phoneNumber = '';
-  final String countryName = '';
-  final String countryCode = '';
+  late String phoneNumber;
+  late String countryName;
+  late String countryCode;
+
+  late String fullPhoneNumber;
+
   @override
   void initState() {
     countryNameController = TextEditingController(text: 'Jordan');
@@ -87,7 +90,9 @@ class _LoginPageState extends State<LoginPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
             child: CustomTextField(
-              onTap: () {},
+              onTap: () {
+                countryName = countryNameController.text;
+              },
               controller: countryNameController,
               readOnly: true,
               suffixIcon: const Icon(
@@ -106,7 +111,9 @@ class _LoginPageState extends State<LoginPage> {
                   child: CustomTextField(
                     controller: countryCodeController,
                     prefixText: '+',
-                    readOnly: true,
+                    onChanged: (value) {
+                      countryCode = value;
+                    },
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -116,6 +123,9 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'phone number',
                     textAlign: TextAlign.left,
                     keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      phoneNumber = value;
+                    },
                   ),
                 ),
               ],
@@ -129,44 +139,49 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 40),
           CustomElevatedButton(
             onPressed: () async {
-              // try {
-              //   await _auth.verifyPhoneNumber(
-              //     verificationCompleted:
-              //         (PhoneAuthCredential credential) async {
-              //       await _auth.signInWithCredential(credential);
-              //       Navigator.of(context).pushReplacement(
-              //         MaterialPageRoute(
-              //           builder: (context) => const HomePage(),
-              //         ),
-              //       );
-              //     },
-              //     verificationFailed: (FirebaseAuthException e) {
-              //       if (e.code == 'invalid-phone-number') {
-              //         debugPrint('The provided phone number is not valid.');
-              //       }
-              //       // Handle other errors
-              //     },
-              //     codeSent: (String verificationId, int? resendToken) async {
-              //       // Update the UI - wait for the user to enter the SMS code
-              //       String smsCode = 'xxxx';
+              fullPhoneNumber = '+$countryCode$phoneNumber';
+              debugPrint(fullPhoneNumber);
+              try {
+                await _auth.verifyPhoneNumber(
+                  phoneNumber: fullPhoneNumber,
+                  verificationCompleted:
+                      (PhoneAuthCredential credential) async {
+                    await _auth.signInWithCredential(credential);
+                    await _auth.signInWithPhoneNumber(fullPhoneNumber);
+                    debugPrint('before navigating');
 
-              //       // Create a PhoneAuthCredential with the code
-              //       PhoneAuthCredential credential =
-              //           PhoneAuthProvider.credential(
-              //               verificationId: verificationId, smsCode: smsCode);
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ),
+                    );
+                  },
+                  verificationFailed: (FirebaseAuthException e) {
+                    if (e.code == 'invalid-phone-number') {
+                      debugPrint('The provided phone number is not valid.');
+                    }
+                    // Handle other errors
+                  },
+                  codeSent: (String verificationId, int? resendToken) async {
+                    // Update the UI - wait for the user to enter the SMS code
+                    String smsCode = 'xxxx';
 
-              //       // Sign the user in (or link) with the credential
-              //       await _auth.signInWithCredential(credential);
-              //     },
-              //     timeout: const Duration(seconds: 60),
-              //     codeAutoRetrievalTimeout: (String verificationId) {
-              //       // Auto-resolution timed out...
-              //     },
-              //   );
-              // } catch (e) {
-              //   debugPrint(e.toString());
-              //   debugPrint('there is an error here');
-              // }
+                    // Create a PhoneAuthCredential with the code
+                    PhoneAuthCredential credential =
+                        PhoneAuthProvider.credential(
+                            verificationId: verificationId, smsCode: smsCode);
+
+                    // Sign the user in (or link) with the credential
+                    await _auth.signInWithCredential(credential);
+                  },
+                  timeout: const Duration(seconds: 60),
+                  codeAutoRetrievalTimeout: (String verificationId) {
+                    // Auto-resolution timed out...
+                  },
+                );
+              } catch (e) {
+                debugPrint(e.toString());
+              }
             },
             text: 'Next',
             buttonWidth: MediaQuery.of(context).size.width * 0.4,
