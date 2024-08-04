@@ -12,6 +12,9 @@ class CustomTextField extends StatelessWidget {
     this.prefixText,
     this.onTap,
     this.suffixIcon,
+    this.fontSize,
+    this.autoFocus,
+    this.maxLength,
     this.onChanged,
   });
 
@@ -23,6 +26,9 @@ class CustomTextField extends StatelessWidget {
   final String? prefixText;
   final VoidCallback? onTap;
   final Widget? suffixIcon;
+  final double? fontSize;
+  final bool? autoFocus;
+  final int? maxLength;
   final Function(String)? onChanged;
 
   @override
@@ -34,6 +40,11 @@ class CustomTextField extends StatelessWidget {
       textAlign: textAlign ?? TextAlign.center,
       keyboardType: readOnly == null ? keyboardType : null,
       onChanged: onChanged,
+      style: TextStyle(
+        fontSize: fontSize,
+      ),
+      maxLength: maxLength,
+      autofocus: autoFocus ?? false,
       decoration: InputDecoration(
         isDense: true,
         prefixText: prefixText,

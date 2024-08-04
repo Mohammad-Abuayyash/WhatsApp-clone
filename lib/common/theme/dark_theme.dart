@@ -8,7 +8,9 @@ ThemeData darkTheme() {
   return base.copyWith(
     scaffoldBackgroundColor: COLORS.backgroundDark,
     colorScheme: const ColorScheme.dark(
-        background: COLORS.backgroundDark, brightness: Brightness.dark),
+      surface: COLORS.backgroundDark,
+      brightness: Brightness.dark,
+    ),
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+  const HomePage({super.key, required this.userName});
+  final String userName;
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(widget.userName),
         leading: Container(
           decoration: const BoxDecoration(
             shape: BoxShape.circle,

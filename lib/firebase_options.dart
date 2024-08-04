@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC7_3CkeFnb0dJUjJk4Ss32RrwMAX541Ro',
-    appId: '1:561119413348:android:23edb83051693f046b4b71',
-    messagingSenderId: '561119413348',
-    projectId: 'whatsapp-clone-79e46',
-    storageBucket: 'whatsapp-clone-79e46.appspot.com',
+    apiKey: 'AIzaSyB4Pmtr_V99bOQrlSXS2cnpJR3llwCqOH0',
+    appId: '1:710478551591:android:db4d10227b48a736264c02',
+    messagingSenderId: '710478551591',
+    projectId: 'whatsapp-clone-e5e0f',
+    storageBucket: 'whatsapp-clone-e5e0f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAsrtBck6PA8-ox-o8U_YdfNNut1kJZ3l0',
-    appId: '1:561119413348:ios:39e73198c3c059f86b4b71',
-    messagingSenderId: '561119413348',
-    projectId: 'whatsapp-clone-79e46',
-    storageBucket: 'whatsapp-clone-79e46.appspot.com',
+    apiKey: 'AIzaSyDGlLT6HI6zNJ_nP7FqDzIx18Yas33WJHI',
+    appId: '1:710478551591:ios:d6fb6808e8013729264c02',
+    messagingSenderId: '710478551591',
+    projectId: 'whatsapp-clone-e5e0f',
+    storageBucket: 'whatsapp-clone-e5e0f.appspot.com',
     iosBundleId: 'com.example.whatsappClone',
   );
 }

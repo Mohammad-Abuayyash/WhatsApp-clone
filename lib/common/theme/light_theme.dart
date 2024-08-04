@@ -8,7 +8,8 @@ ThemeData lightTheme() {
   return base.copyWith(
     scaffoldBackgroundColor: COLORS.backgroundLight,
     colorScheme: const ColorScheme.light(
-      background: COLORS.backgroundLight,
+      surface: COLORS.backgroundLight,
+      brightness: Brightness.light,
     ),
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(

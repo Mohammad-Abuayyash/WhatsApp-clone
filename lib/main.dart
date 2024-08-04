@@ -10,10 +10,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:whatsapp_clone/firebase_options.dart';
+import 'package:whatsapp_clone/verification/verification_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
+    name: 'whatsapp-clone-e5e0f',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const ProviderScope(child: MainApp()));
