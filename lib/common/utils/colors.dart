@@ -1,7 +1,8 @@
 import 'dart:ui';
 
-class COLORS {
-  COLORS._();
+// ignore: camel_case_types
+class kColors {
+  kColors._();
 
   static const Color greenDark = Color(0xff00a884);
   static const Color greenLight = Color(0xff008069);
@@ -16,4 +17,7 @@ class COLORS {
   static const Color backgroundLight = Color(0xffffffff);
 
   static const Color greyBackground = Color(0xff202c33);
+
+  static const Color phoneIconColorDark = Color(0xff61717b);
+  static const Color phoneIconBgColorDark = Color(0xff283339);
 }

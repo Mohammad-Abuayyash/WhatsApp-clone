@@ -50,12 +50,12 @@ class CustomTextField extends StatelessWidget {
         prefixText: prefixText,
         suffix: suffixIcon,
         hintText: hintText,
-        hintStyle: const TextStyle(color: COLORS.greyDark),
+        hintStyle: const TextStyle(color: kColors.greyDark),
         enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: COLORS.greenDark),
+          borderSide: BorderSide(color: kColors.greenDark),
         ),
         focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: COLORS.greenDark, width: 2),
+          borderSide: BorderSide(color: kColors.greenDark, width: 2),
         ),
       ),
     );

@@ -6,9 +6,9 @@ ThemeData darkTheme() {
   final ThemeData base = ThemeData.dark();
 
   return base.copyWith(
-    scaffoldBackgroundColor: COLORS.backgroundDark,
+    scaffoldBackgroundColor: kColors.backgroundDark,
     colorScheme: const ColorScheme.dark(
-      surface: COLORS.backgroundDark,
+      surface: kColors.backgroundDark,
       brightness: Brightness.dark,
     ),
     appBarTheme: const AppBarTheme(
@@ -19,16 +19,16 @@ ThemeData darkTheme() {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: COLORS.greenDark,
-        foregroundColor: COLORS.backgroundDark,
+        backgroundColor: kColors.greenDark,
+        foregroundColor: kColors.backgroundDark,
         splashFactory: NoSplash.splashFactory,
         elevation: 0,
         shadowColor: Colors.transparent,
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: COLORS.backgroundDark,
-      modalBackgroundColor: COLORS.backgroundDark,
+      backgroundColor: kColors.backgroundDark,
+      modalBackgroundColor: kColors.backgroundDark,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(20),

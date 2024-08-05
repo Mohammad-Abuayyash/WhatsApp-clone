@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone/common/utils/colors.dart';
+import 'package:whatsapp_clone/common/utils/Colors.dart';
 import 'package:whatsapp_clone/common/widgets/custom_elevated_button.dart';
 import 'package:whatsapp_clone/feature/auth/pages/login_page.dart';
 import 'package:whatsapp_clone/feature/welcome/widgets/language_button.dart';
@@ -12,7 +12,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: COLORS.backgroundDark,
+      backgroundColor: kColors.backgroundDark,
       body: Column(
         children: [
           Expanded(
@@ -23,7 +23,7 @@ class WelcomePage extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                 child: Image.asset(
                   '/Users/boj/Desktop/whatsapp-clone/whatsapp_clone/assets/images/circle.png',
-                  color: COLORS.greenDark,
+                  color: kColors.greenDark,
                 ),
               ),
             ),

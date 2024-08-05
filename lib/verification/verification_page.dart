@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
 import 'package:whatsapp_clone/feature/auth/widgets/custom_text_field.dart';
-import 'package:whatsapp_clone/home_page/home_page.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:whatsapp_clone/user_info_page/user_info_page.dart';
 
 class VerificationPage extends StatefulWidget {
   const VerificationPage({
@@ -22,6 +23,9 @@ class VerificationPage extends StatefulWidget {
 
 class _VerificationPageState extends State<VerificationPage> {
   late TextEditingController codeController;
+  bool showSpinner = false;
+  String email = '';
+  String password = '';
 
   Future<void> verifyOTP(String otp) async {
     FirebaseAuth _auth = FirebaseAuth.instance;
@@ -32,10 +36,19 @@ class _VerificationPageState extends State<VerificationPage> {
       debugPrint('${credential.smsCode}: credential.smsCode');
 
       if (user.user != null) {
+        email = '${widget.phoneNumber}_whasts@email.com';
+        password = '123456';
+
+        // final key = encrypt.Key.fromSecureRandom(16);
+        // final iv = encrypt.IV.fromSecureRandom(16);
+        // final encrypter = encrypt.Encrypter(encrypt.AES(key));
+        // final encrypted = encrypter.encrypt(password, iv: iv);
+        // final decrypted = encrypter.decrypt(encrypted, iv: iv);
+
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) {
-              return HomePage(userName: widget.phoneNumber);
+              return UserInfoPage(email: email, password: password);
             },
           ),
         );
@@ -79,13 +92,13 @@ class _VerificationPageState extends State<VerificationPage> {
                 text:
                     "You've tried to register ${widget.phoneNumber}, wait before requesting an SMS or call with your call.",
                 style: const TextStyle(
-                  color: COLORS.greyDark,
+                  color: kColors.greyDark,
                   height: 1.5,
                 ),
                 children: const [
                   TextSpan(
                     text: '\nWrong number?',
-                    style: TextStyle(color: COLORS.blueDark),
+                    style: TextStyle(color: kColors.blueDark),
                   ),
                 ],
               ),
@@ -108,38 +121,38 @@ class _VerificationPageState extends State<VerificationPage> {
             const SizedBox(height: 20),
             const Text(
               'Enter 6-digit code',
-              style: TextStyle(color: COLORS.greyDark),
+              style: TextStyle(color: kColors.greyDark),
             ),
             const SizedBox(height: 40),
             const Row(
               children: [
                 Icon(
                   Icons.message,
-                  color: COLORS.greyDark,
+                  color: kColors.greyDark,
                 ),
                 const SizedBox(width: 20),
                 Text(
                   'Resend SMS',
                   style: TextStyle(
-                    color: COLORS.greyDark,
+                    color: kColors.greyDark,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            Divider(color: COLORS.blueDark.withOpacity(0.2)),
+            Divider(color: kColors.blueDark.withOpacity(0.2)),
             const SizedBox(height: 10),
             const Row(
               children: [
                 Icon(
                   Icons.phone,
-                  color: COLORS.greyDark,
+                  color: kColors.greyDark,
                 ),
                 SizedBox(width: 20),
                 Text(
                   'Call me',
                   style: TextStyle(
-                    color: COLORS.greyDark,
+                    color: kColors.greyDark,
                   ),
                 ),
               ],

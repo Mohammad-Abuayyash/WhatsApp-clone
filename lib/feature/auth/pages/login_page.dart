@@ -4,7 +4,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
 import 'package:whatsapp_clone/common/widgets/custom_elevated_button.dart';
 import 'package:whatsapp_clone/feature/auth/widgets/custom_text_field.dart';
-import 'package:whatsapp_clone/home_page/home_page.dart';
 import 'package:whatsapp_clone/verification/verification_page.dart';
 
 // ...
@@ -54,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.loginPageTitle),
         elevation: 0,
-        backgroundColor: COLORS.backgroundDark,
+        backgroundColor: kColors.backgroundDark,
         centerTitle: true,
         actions: [
           IconButton(
@@ -66,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
             constraints: const BoxConstraints(minWidth: 40),
             icon: const Icon(
               Icons.more_vert,
-              color: COLORS.greyDark,
+              color: kColors.greyDark,
             ),
           ),
         ],
@@ -80,13 +79,13 @@ class _LoginPageState extends State<LoginPage> {
               text: const TextSpan(
                 text: 'WhatsApp will need to verify your phone number. ',
                 style: TextStyle(
-                  color: COLORS.greyDark,
+                  color: kColors.greyDark,
                   height: 1.5,
                 ),
                 children: [
                   TextSpan(
                       text: "What's my number?",
-                      style: TextStyle(color: COLORS.blueDark)),
+                      style: TextStyle(color: kColors.blueDark)),
                 ],
               ),
             ),
@@ -102,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
               readOnly: true,
               suffixIcon: const Icon(
                 Icons.arrow_drop_down,
-                color: COLORS.greenDark,
+                color: kColors.greenDark,
               ),
             ),
           ),
@@ -139,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 20),
           const Text(
             'Carrier charges may apply',
-            style: TextStyle(color: COLORS.greyDark),
+            style: TextStyle(color: kColors.greyDark),
           ),
           const SizedBox(height: 40),
           CustomElevatedButton(

@@ -1,16 +1,52 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.userName});
-  final String userName;
+class HomePage extends ConsumerStatefulWidget {
+  const HomePage({super.key});
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   bool isThereArchived = false;
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
+
+  late String userName;
+  // late UserCredential currentUser;
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // Future<bool> signIn() async {
+  //   try {
+  //     currentUser = await _auth.signInWithEmailAndPassword(
+  //       email: '+962797857727_whats@email.com',
+  //       password: '123456',
+  //     );
+  //     if (currentUser != null) {
+  //       debugPrint(
+  //           'Signed in successfully!'); // Replace with appropriate action
+  //       // Navigate to a user-specific screen or display a success message
+  //       return true;
+  //     } else {
+  //       debugPrint('Sign-in failed.'); // Replace with error handling
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     debugPrint('Error signing in: $e'); // Handle errors appropriately
+  //     return false;
+  //   }
+  // }
+
+  @override
+  void initState() {
+    // signIn();
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -21,9 +57,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // final _firestore = FirebaseFirestore.instance;
+    // final userInfo = _firestore.collection('Users').doc(_auth.currentUser!.uid);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.userName),
+        title: Text('currentUser'.toString()),
         leading: Container(
           decoration: const BoxDecoration(
             shape: BoxShape.circle,

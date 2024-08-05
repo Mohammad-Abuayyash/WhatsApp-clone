@@ -15,20 +15,20 @@ class PrivacyAndTerms extends StatelessWidget {
         text: const TextSpan(
             text: 'Read our ',
             style: TextStyle(
-              color: COLORS.greyDark,
+              color: kColors.greyDark,
             ),
             children: [
               TextSpan(
                 text: 'Privacy Policy. ',
                 style: TextStyle(
-                  color: COLORS.blueDark,
+                  color: kColors.blueDark,
                 ),
               ),
               TextSpan(text: 'Tap "Agree and continue" to accept the '),
               TextSpan(
                 text: 'Terms of Services.',
                 style: TextStyle(
-                  color: COLORS.blueDark,
+                  color: kColors.blueDark,
                 ),
               ),
             ]),

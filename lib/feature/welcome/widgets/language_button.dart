@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/common/providers/locale_provider.dart';
-import 'package:whatsapp_clone/common/utils/colors.dart';
+import 'package:whatsapp_clone/common/utils/Colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LanguageButton extends ConsumerStatefulWidget {
@@ -31,7 +31,7 @@ class _LanguageButtonState extends ConsumerState<LanguageButton> {
                   height: 4,
                   width: 30,
                   decoration: BoxDecoration(
-                    color: COLORS.greyDark.withOpacity(0.4),
+                    color: kColors.greyDark.withOpacity(0.4),
                     borderRadius: BorderRadius.circular(5),
                   ),
                 ),
@@ -49,7 +49,7 @@ class _LanguageButtonState extends ConsumerState<LanguageButton> {
                       constraints: const BoxConstraints(maxWidth: 40),
                       icon: const Icon(
                         Icons.close_outlined,
-                        color: COLORS.greyDark,
+                        color: kColors.greyDark,
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -64,7 +64,7 @@ class _LanguageButtonState extends ConsumerState<LanguageButton> {
                 ),
                 const SizedBox(height: 10),
                 Divider(
-                  color: COLORS.greyDark.withOpacity(0.5),
+                  color: kColors.greyDark.withOpacity(0.5),
                   thickness: 0.5,
                 ),
                 RadioListTile(
@@ -77,12 +77,12 @@ class _LanguageButtonState extends ConsumerState<LanguageButton> {
                       localeProv.setLocale(const Locale('en'));
                     });
                   },
-                  activeColor: COLORS.greenDark,
+                  activeColor: kColors.greenDark,
                   title: const Text('English'),
                   subtitle: const Text(
                     "(phone's language)",
                     style: TextStyle(
-                      color: COLORS.greyDark,
+                      color: kColors.greyDark,
                     ),
                   ),
                 ),
@@ -96,7 +96,7 @@ class _LanguageButtonState extends ConsumerState<LanguageButton> {
                       localeProv.setLocale(const Locale('ar'));
                     });
                   },
-                  activeColor: COLORS.greenDark,
+                  activeColor: kColors.greenDark,
                   title: const Text('Arabic'),
                 ),
                 const SizedBox(height: 10),
@@ -121,11 +121,11 @@ class _LanguageButtonState extends ConsumerState<LanguageButton> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.language, color: COLORS.greenDark),
+              const Icon(Icons.language, color: kColors.greenDark),
               const SizedBox(width: 10),
               Text(selectedLanguage),
               const SizedBox(width: 10),
-              const Icon(Icons.keyboard_arrow_down, color: COLORS.greenDark),
+              const Icon(Icons.keyboard_arrow_down, color: kColors.greenDark),
             ],
           ),
         ),

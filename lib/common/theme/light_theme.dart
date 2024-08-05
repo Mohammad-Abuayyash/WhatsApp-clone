@@ -6,9 +6,9 @@ ThemeData lightTheme() {
   final ThemeData base = ThemeData.light();
 
   return base.copyWith(
-    scaffoldBackgroundColor: COLORS.backgroundLight,
+    scaffoldBackgroundColor: kColors.backgroundLight,
     colorScheme: const ColorScheme.light(
-      surface: COLORS.backgroundLight,
+      surface: kColors.backgroundLight,
       brightness: Brightness.light,
     ),
     appBarTheme: const AppBarTheme(
@@ -19,16 +19,16 @@ ThemeData lightTheme() {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: COLORS.greenLight,
-        foregroundColor: COLORS.backgroundLight,
+        backgroundColor: kColors.greenLight,
+        foregroundColor: kColors.backgroundLight,
         splashFactory: NoSplash.splashFactory,
         elevation: 0,
         shadowColor: Colors.transparent,
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: COLORS.backgroundLight,
-      modalBackgroundColor: COLORS.backgroundLight,
+      backgroundColor: kColors.backgroundLight,
+      modalBackgroundColor: kColors.backgroundLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(20),
