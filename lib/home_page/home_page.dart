@@ -15,31 +15,11 @@ class _HomePageState extends ConsumerState<HomePage> {
   final FocusNode _focusNode = FocusNode();
 
   late String userName;
-  // late UserCredential currentUser;
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Future<bool> signIn() async {
-  //   try {
-  //     currentUser = await _auth.signInWithEmailAndPassword(
-  //       email: '+962797857727_whats@email.com',
-  //       password: '123456',
-  //     );
-  //     if (currentUser != null) {
-  //       debugPrint(
-  //           'Signed in successfully!'); // Replace with appropriate action
-  //       // Navigate to a user-specific screen or display a success message
-  //       return true;
-  //     } else {
-  //       debugPrint('Sign-in failed.'); // Replace with error handling
-  //       return false;
-  //     }
-  //   } catch (e) {
-  //     debugPrint('Error signing in: $e'); // Handle errors appropriately
-  //     return false;
-  //   }
-  // }
+  
 
   @override
   void initState() {

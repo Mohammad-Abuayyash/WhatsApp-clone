@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/auth.dart';
 import 'package:whatsapp_clone/common/providers/locale_provider.dart';
 import 'package:whatsapp_clone/common/theme/dark_theme.dart';
 import 'package:whatsapp_clone/common/theme/light_theme.dart';
@@ -37,7 +38,7 @@ class MainApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      home: const HomePage(),
+      home: const Auth(),
     );
   }
 }

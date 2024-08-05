@@ -14,22 +14,45 @@ class UserInfoPage extends StatefulWidget {
 
   final String email;
   final String password;
+
   @override
   State<UserInfoPage> createState() => _UserInfoPageState();
 }
 
 class _UserInfoPageState extends State<UserInfoPage> {
+  late UserCredential currentUser;
+
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
 
   Future<void> signUp(String email, String password) async {
     try {
-      await _auth.signInWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
     } catch (e) {
       debugPrint(e.toString());
+    }
+  }
+
+  Future<bool> signIn() async {
+    try {
+      currentUser = await _auth.signInWithEmailAndPassword(
+        email: '+962797857727_whats@email.com',
+        password: '123456',
+      );
+      if (currentUser != null) {
+        debugPrint(
+            'Signed in successfully!'); 
+        return true;
+      } else {
+        debugPrint('Sign-in failed.'); // Replace with error handling
+        return false;
+      }
+    } catch (e) {
+      debugPrint('Error signing in: $e'); // Handle errors appropriately
+      return false;
     }
   }
 
