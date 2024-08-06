@@ -36,26 +36,6 @@ class _UserInfoPageState extends State<UserInfoPage> {
     }
   }
 
-  Future<bool> signIn() async {
-    try {
-      currentUser = await _auth.signInWithEmailAndPassword(
-        email: '+962797857727_whats@email.com',
-        password: '123456',
-      );
-      if (currentUser != null) {
-        debugPrint(
-            'Signed in successfully!'); 
-        return true;
-      } else {
-        debugPrint('Sign-in failed.'); // Replace with error handling
-        return false;
-      }
-    } catch (e) {
-      debugPrint('Error signing in: $e'); // Handle errors appropriately
-      return false;
-    }
-  }
-
   final ImagePicker _picker = ImagePicker();
   File? _image;
   final TextEditingController userNameController = TextEditingController();

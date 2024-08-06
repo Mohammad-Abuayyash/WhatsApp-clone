@@ -22,7 +22,7 @@ class WelcomePage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                 child: Image.asset(
-                  '/Users/boj/Desktop/whatsapp-clone/whatsapp_clone/assets/images/circle.png',
+                  "assets/images/circle.png",
                   color: kColors.greenDark,
                 ),
               ),

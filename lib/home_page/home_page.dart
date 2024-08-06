@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/feature/welcome/screens/welcome_page.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -19,15 +20,6 @@ class _HomePageState extends ConsumerState<HomePage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  
-
-  @override
-  void initState() {
-    // signIn();
-
-    super.initState();
-  }
-
   @override
   void dispose() {
     _controller.dispose();
@@ -42,14 +34,27 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('currentUser'.toString()),
+        title: Text(_auth.currentUser!.phoneNumber.toString()),
+        centerTitle: true,
         leading: Container(
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
           ),
-          child: const Icon(
-            Icons.more_horiz_outlined,
-            color: Colors.white,
+          child: IconButton(
+            onPressed: () {
+              _auth.signOut();
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const WelcomePage();
+                  },
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.more_horiz_outlined,
+              color: Colors.white,
+            ),
           ),
         ),
         actions: const [
