@@ -39,6 +39,7 @@ class MainApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       home: const Auth(),
+      //test
     );
   }
 }
