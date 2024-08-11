@@ -4,57 +4,36 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/common/providers/image_provider.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
 import 'package:whatsapp_clone/common/widgets/custom_elevated_button.dart';
-import 'package:whatsapp_clone/feature/auth/widgets/custom_text_field.dart';
+import 'package:whatsapp_clone/auth/widgets/custom_text_field.dart';
 import 'package:image_picker/image_picker.dart';
 
-class UserInfoPage extends StatefulWidget {
+class UserInfoPage extends ConsumerStatefulWidget {
   const UserInfoPage({super.key, required this.email, required this.password});
 
   final String email;
   final String password;
 
   @override
-  State<UserInfoPage> createState() => _UserInfoPageState();
+  ConsumerState<UserInfoPage> createState() => _UserInfoPageState();
 }
 
-class _UserInfoPageState extends State<UserInfoPage> {
+class _UserInfoPageState extends ConsumerState<UserInfoPage> {
   late UserCredential currentUser;
 
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
 
-  Future<void> signUp(String email, String password) async {
-    try {
-      await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
-
-  final ImagePicker _picker = ImagePicker();
-  File? _image;
   final TextEditingController userNameController = TextEditingController();
-
-  Future<void> _pickImage() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-        debugPrint(_image.toString());
-      } else {
-        debugPrint('No image selected.');
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final pickImage = ref.read(imageProvider.notifier).pickImage();
+    final image = ref.watch(imageProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile Info'),
@@ -71,7 +50,9 @@ class _UserInfoPageState extends State<UserInfoPage> {
             ),
             const SizedBox(height: 50),
             InkWell(
-              onTap: _pickImage,
+              onTap: () {
+                pickImage;
+              },
               child: Container(
                 width: 135,
                 height: 135,
@@ -81,13 +62,13 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   shape: BoxShape.circle,
                   color: kColors.phoneIconBgColorDark,
                   image: DecorationImage(
-                    image: FileImage(_image!),
+                    image: FileImage(image!),
                     fit: BoxFit.fill,
                   ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 3, right: 3),
-                  child: _image == null
+                  child: image == null
                       ? const Icon(
                           Icons.add_a_photo_rounded,
                           color: kColors.phoneIconColorDark,

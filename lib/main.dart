@@ -5,7 +5,7 @@ import 'package:whatsapp_clone/common/providers/locale_provider.dart';
 import 'package:whatsapp_clone/common/theme/dark_theme.dart';
 import 'package:whatsapp_clone/common/theme/light_theme.dart';
 import 'package:whatsapp_clone/home_page/home_page.dart';
-import 'package:whatsapp_clone/feature/welcome/screens/welcome_page.dart';
+import 'package:whatsapp_clone/welcome/screens/welcome_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';

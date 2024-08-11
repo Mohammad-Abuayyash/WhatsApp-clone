@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/feature/welcome/screens/welcome_page.dart';
+import 'package:whatsapp_clone/welcome/screens/welcome_page.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});

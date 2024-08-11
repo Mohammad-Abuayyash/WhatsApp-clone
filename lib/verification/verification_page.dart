@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
-import 'package:whatsapp_clone/feature/auth/widgets/custom_text_field.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:whatsapp_clone/auth/widgets/custom_text_field.dart';
 import 'package:whatsapp_clone/user_info_page/user_info_page.dart';
 
 class VerificationPage extends StatefulWidget {
