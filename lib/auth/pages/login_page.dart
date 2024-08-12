@@ -170,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                     MaterialPageRoute(
                       builder: (context) {
                         return VerificationPage(
-                            phoneNumber: fullPhoneNumber,
+                            phoneNumber: '+$countryCode$phoneNumber',
                             OTP: OTP,
                             verification_id: verification_id);
                       },

@@ -9,10 +9,10 @@ class ImageNotifier extends StateNotifier<File?> {
 
   final ImagePicker _picker = ImagePicker();
   Future<void> pickImage() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    final profileImage = await _picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      state = File(pickedFile.path);
+    if (profileImage != null) {
+      state = File(profileImage.path);
       debugPrint(state.toString());
     } else {
       debugPrint('No image selected.');

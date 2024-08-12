@@ -1,28 +1,35 @@
-import 'dart:io';
-import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/common/providers/image_provider.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
 import 'package:whatsapp_clone/common/widgets/custom_elevated_button.dart';
 import 'package:whatsapp_clone/auth/widgets/custom_text_field.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:whatsapp_clone/home_page/home_page.dart';
+import 'package:whatsapp_clone/models/user_model.dart';
 
 class UserInfoPage extends ConsumerStatefulWidget {
-  const UserInfoPage({super.key, required this.email, required this.password});
+  const UserInfoPage({
+    super.key,
+    required this.phoneNumber,
+    required this.email,
+    required this.password,
+  });
 
   final String email;
   final String password;
+  final String phoneNumber;
 
   @override
   ConsumerState<UserInfoPage> createState() => _UserInfoPageState();
 }
 
 class _UserInfoPageState extends ConsumerState<UserInfoPage> {
-  late UserCredential currentUser;
+  late final UserModel user;
 
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
@@ -62,7 +69,9 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
                   shape: BoxShape.circle,
                   color: kColors.phoneIconBgColorDark,
                   image: DecorationImage(
-                    image: FileImage(image!),
+                    image: image != null
+                        ? FileImage(image!) as ImageProvider
+                        : const AssetImage("assets/images/circle.png"),
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -103,7 +112,28 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
             ),
             const SizedBox(height: 40),
             CustomElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await AuthController().signUp(
+                  email: widget.email,
+                  password: widget.password,
+                  user: UserModel(
+                    username: userNameController.text,
+                    uid: _auth.currentUser!.uid,
+                    profileImageUrl: image.toString(),
+                    active: true,
+                    lastSeen: DateTime.now().millisecondsSinceEpoch,
+                    phoneNumber: widget.phoneNumber,
+                    groupId: [],
+                  ),
+                );
+
+                if (_auth.currentUser != null) {
+                  Navigator.of(context)
+                      .pushReplacement(MaterialPageRoute(builder: (context) {
+                    return const HomePage();
+                  }));
+                }
+              },
               text: 'Next',
               buttonWidth: 140,
             ),

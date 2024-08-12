@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/auth.dart';
+import 'package:whatsapp_clone/common/providers/current_user.dart';
 import 'package:whatsapp_clone/welcome/screens/welcome_page.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -34,7 +36,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_auth.currentUser!.phoneNumber.toString()),
+        title: Text(ref.watch(CurrentUserProvider)?.username ?? 'user'),
         centerTitle: true,
         leading: Container(
           decoration: const BoxDecoration(
@@ -154,7 +156,16 @@ class _HomePageState extends ConsumerState<HomePage> {
 
                   // Add more ListTiles here
                 ],
-              )
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    _auth.signOut();
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return const Auth();
+                    }));
+                  },
+                  child: const Text('log out')),
             ],
           ),
         ),

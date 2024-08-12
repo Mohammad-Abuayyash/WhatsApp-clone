@@ -33,9 +33,9 @@ class _VerificationPageState extends State<VerificationPage> {
           verificationId: widget.verification_id, smsCode: otp);
       UserCredential user = await _auth.signInWithCredential(credential);
       debugPrint('${credential.smsCode}: credential.smsCode');
-
+      debugPrint('${widget.phoneNumber}: phoneNumber');
       if (user.user != null) {
-        email = '${widget.phoneNumber}_whasts@email.com';
+        email = '${widget.phoneNumber.toString()}_whats@email.com';
         password = '123456';
 
         // final key = encrypt.Key.fromSecureRandom(16);
@@ -47,7 +47,11 @@ class _VerificationPageState extends State<VerificationPage> {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) {
-              return UserInfoPage(email: email, password: password);
+              return UserInfoPage(
+                phoneNumber: widget.phoneNumber,
+                email: email,
+                password: password,
+              );
             },
           ),
         );
@@ -76,7 +80,7 @@ class _VerificationPageState extends State<VerificationPage> {
       appBar: AppBar(
         title: const Text('Verify your number'),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
         ],
         elevation: 0,
         centerTitle: true,
