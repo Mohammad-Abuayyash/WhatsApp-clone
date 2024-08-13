@@ -1,12 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:whatsapp_clone/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
 import 'package:whatsapp_clone/common/widgets/custom_elevated_button.dart';
 import 'package:whatsapp_clone/auth/widgets/custom_text_field.dart';
-import 'package:whatsapp_clone/verification/verification_page.dart';
-
-// ...
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -20,16 +17,9 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController countryCodeController;
   late TextEditingController phoneNumberController;
 
-  final _auth = FirebaseAuth.instance;
   late String phoneNumber;
   late String countryName;
   late String countryCode;
-
-  String fullPhoneNumber = '';
-
-  String verification_id = '';
-  String OTP = '';
-  var _resendToken;
 
   @override
   void initState() {
@@ -143,46 +133,9 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 40),
           CustomElevatedButton(
             onPressed: () async {
-              await _auth.verifyPhoneNumber(
-                phoneNumber: '+$countryCode$phoneNumber',
-                verificationCompleted: (credential) {},
-                verificationFailed: (FirebaseAuthException e) {
-                  if (e.code == 'invalid-phone-number') {
-                    debugPrint('The provided phone number is not valid.');
-                  } else {
-                    debugPrint(e.toString());
-                  }
-                  debugPrint('error message: ${e.message}');
-                  debugPrint('error code: ${e.code}');
-                  debugPrint('error stackTrace: ${e.stackTrace}');
-                },
-                codeSent: (String verificationId, int? resendToken) async {
-                  verification_id = verificationId;
-                  _resendToken = resendToken;
-                  debugPrint('code is sent');
-
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text(
-                        'Please check your phone for the verification code.'),
-                  ));
-
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return VerificationPage(
-                            phoneNumber: '+$countryCode$phoneNumber',
-                            OTP: OTP,
-                            verification_id: verification_id);
-                      },
-                    ),
-                  );
-                },
-                timeout: const Duration(seconds: 60),
-                codeAutoRetrievalTimeout: (String verificationId) {
-                  verification_id = verificationId;
-                },
-                forceResendingToken: _resendToken,
-              );
+              AuthController authController = AuthController();
+              await authController.signUpWithPhoneNumber(context,
+                  phoneNumber: '+$countryCode$phoneNumber');
             },
             text: 'Next',
             buttonWidth: MediaQuery.of(context).size.width * 0.4,

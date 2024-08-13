@@ -16,12 +16,8 @@ class UserInfoPage extends ConsumerStatefulWidget {
   const UserInfoPage({
     super.key,
     required this.phoneNumber,
-    required this.email,
-    required this.password,
   });
 
-  final String email;
-  final String password;
   final String phoneNumber;
 
   @override
@@ -31,14 +27,13 @@ class UserInfoPage extends ConsumerStatefulWidget {
 class _UserInfoPageState extends ConsumerState<UserInfoPage> {
   late final UserModel user;
 
-  final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
 
   final TextEditingController userNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final pickImage = ref.read(imageProvider.notifier).pickImage();
+    final imageProv = ref.read(imageProvider.notifier);
     final image = ref.watch(imageProvider);
 
     return Scaffold(
@@ -57,8 +52,8 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
             ),
             const SizedBox(height: 50),
             InkWell(
-              onTap: () {
-                pickImage;
+              onTap: () async {
+                await imageProv.pickImage();
               },
               child: Container(
                 width: 135,
@@ -113,9 +108,8 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
             const SizedBox(height: 40),
             CustomElevatedButton(
               onPressed: () async {
-                await AuthController().signUp(
-                  email: widget.email,
-                  password: widget.password,
+                await AuthController().createUser(
+                  ref: ref,
                   user: UserModel(
                     username: userNameController.text,
                     uid: _auth.currentUser!.uid,

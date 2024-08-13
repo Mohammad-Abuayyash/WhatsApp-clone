@@ -31,12 +31,14 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final _firestore = FirebaseFirestore.instance;
-    // final userInfo = _firestore.collection('Users').doc(_auth.currentUser!.uid);
+    final userInfo = ref.watch(CurrentUserProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(ref.watch(CurrentUserProvider)?.username ?? 'user'),
+        title: Text(
+          userInfo!.username,
+          style: const TextStyle(fontSize: 17),
+        ),
         centerTitle: true,
         leading: Container(
           decoration: const BoxDecoration(

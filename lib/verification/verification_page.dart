@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
 import 'package:whatsapp_clone/auth/widgets/custom_text_field.dart';
 import 'package:whatsapp_clone/user_info_page/user_info_page.dart';
@@ -23,44 +24,6 @@ class VerificationPage extends StatefulWidget {
 class _VerificationPageState extends State<VerificationPage> {
   late TextEditingController codeController;
   bool showSpinner = false;
-  String email = '';
-  String password = '';
-
-  Future<void> verifyOTP(String otp) async {
-    FirebaseAuth _auth = FirebaseAuth.instance;
-    try {
-      PhoneAuthCredential credential = PhoneAuthProvider.credential(
-          verificationId: widget.verification_id, smsCode: otp);
-      UserCredential user = await _auth.signInWithCredential(credential);
-      debugPrint('${credential.smsCode}: credential.smsCode');
-      debugPrint('${widget.phoneNumber}: phoneNumber');
-      if (user.user != null) {
-        email = '${widget.phoneNumber.toString()}_whats@email.com';
-        password = '123456';
-
-        // final key = encrypt.Key.fromSecureRandom(16);
-        // final iv = encrypt.IV.fromSecureRandom(16);
-        // final encrypter = encrypt.Encrypter(encrypt.AES(key));
-        // final encrypted = encrypter.encrypt(password, iv: iv);
-        // final decrypted = encrypter.decrypt(encrypted, iv: iv);
-
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) {
-              return UserInfoPage(
-                phoneNumber: widget.phoneNumber,
-                email: email,
-                password: password,
-              );
-            },
-          ),
-        );
-      }
-    } catch (e) {
-      debugPrint('verifyOTP: ');
-      debugPrint(e.toString());
-    }
-  }
 
   @override
   void initState() {
@@ -117,7 +80,14 @@ class _VerificationPageState extends State<VerificationPage> {
                 keyboardType: TextInputType.number,
                 maxLength: 6,
                 onChanged: (value) async {
-                  await verifyOTP(value);
+                  AuthController authController = AuthController();
+                  await authController.verifyOTP(
+                    context,
+                    value: value,
+                    phoneNumber: widget.phoneNumber,
+                    verification_id: widget.verification_id,
+                    otp: widget.OTP,
+                  );
                 },
               ),
             ),
@@ -133,7 +103,7 @@ class _VerificationPageState extends State<VerificationPage> {
                   Icons.message,
                   color: kColors.greyDark,
                 ),
-                const SizedBox(width: 20),
+                SizedBox(width: 20),
                 Text(
                   'Resend SMS',
                   style: TextStyle(
