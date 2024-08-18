@@ -8,8 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/modules/auth/repositories/firebase_storage_repository.dart';
 import 'package:whatsapp_clone/common/utils/snack_bar.dart';
 import 'package:whatsapp_clone/common/models/user_model.dart';
-import 'package:whatsapp_clone/modules/auth/screens/user_info_page.dart';
-import 'package:whatsapp_clone/modules/auth/screens/verification_page.dart';
+import 'package:whatsapp_clone/modules/auth/screens/user_info_page/user_info_page.dart';
+import 'package:whatsapp_clone/modules/auth/screens/verification_screen/verification_page.dart';
 
 class AuthController {
   final _auth = FirebaseAuth.instance;

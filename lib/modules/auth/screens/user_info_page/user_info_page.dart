@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/common/models/app_router.dart';
+import 'package:whatsapp_clone/common/models/app_routes.dart';
 import 'package:whatsapp_clone/modules/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/common/providers/image_provider.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
@@ -108,10 +110,7 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
                 );
 
                 if (_auth.currentUser != null) {
-                  Navigator.of(context)
-                      .pushReplacement(MaterialPageRoute(builder: (context) {
-                    return const HomePage();
-                  }));
+                  AppRouter.pushReplacement(AppRoutes.homeScreen);
                 }
               },
               text: 'Next',

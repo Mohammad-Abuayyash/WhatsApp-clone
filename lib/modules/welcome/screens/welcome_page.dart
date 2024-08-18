@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone/common/models/app_router.dart';
+import 'package:whatsapp_clone/common/models/app_routes.dart';
 import 'package:whatsapp_clone/common/utils/Colors.dart';
 import 'package:whatsapp_clone/common/widgets/custom_elevated_button.dart';
-import 'package:whatsapp_clone/modules/auth/screens/login_page.dart';
+import 'package:whatsapp_clone/modules/auth/screens/login_screen/login_page.dart';
 import 'package:whatsapp_clone/modules/welcome/widgets/language_button.dart';
 import 'package:whatsapp_clone/modules/welcome/widgets/privacy_and_terms.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -41,11 +43,11 @@ class WelcomePage extends StatelessWidget {
                 ),
                 const PrivacyAndTerms(),
                 CustomElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const LoginPage()));
-                    },
-                    text: 'AGREE AND CONTINUE'),
+                  onPressed: () {
+                    AppRouter.push(AppRoutes.loginScreen);
+                  },
+                  text: 'AGREE AND CONTINUE',
+                ),
                 const SizedBox(height: 50),
                 const LanguageButton(),
               ],

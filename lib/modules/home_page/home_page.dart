@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/common/models/app_router.dart';
+import 'package:whatsapp_clone/common/models/app_routes.dart';
 import 'package:whatsapp_clone/modules/auth/auth.dart';
 import 'package:whatsapp_clone/common/providers/current_user.dart';
 import 'package:whatsapp_clone/modules/welcome/screens/welcome_page.dart';
@@ -168,16 +170,20 @@ class _HomePageState extends ConsumerState<HomePage> {
               ElevatedButton(
                   onPressed: () {
                     _auth.signOut();
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return const Auth();
-                    }));
+                    AppRouter.pushReplacement(AppRoutes.authScreen);
                   },
                   child: const Text('log out')),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.update)),
+        BottomNavigationBarItem(icon: Icon(Icons.call_sharp)),
+        BottomNavigationBarItem(icon: Icon(Icons.people_outline)),
+        BottomNavigationBarItem(icon: Icon(Icons.chat)),
+        BottomNavigationBarItem(icon: Icon(Icons.settings_outlined)),
+      ]),
     );
   }
 }

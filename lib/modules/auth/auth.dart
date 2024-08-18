@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/modules/welcome/screens/welcome_page.dart';
 import 'package:whatsapp_clone/modules/home_page/home_page.dart';
 
-class Auth extends StatelessWidget {
-  /// [Auth] constructor
-  const Auth({super.key});
+class AuthScreen extends StatelessWidget {
+  /// [AuthScreen] constructor
+  const AuthScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

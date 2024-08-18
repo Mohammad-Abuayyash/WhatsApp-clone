@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/common/models/app_router.dart';
+import 'package:whatsapp_clone/common/models/app_routes.dart';
 import 'package:whatsapp_clone/modules/auth/auth.dart';
 import 'package:whatsapp_clone/common/providers/locale_provider.dart';
 import 'package:whatsapp_clone/common/theme/dark_theme.dart';
@@ -29,14 +31,17 @@ class MainApp extends ConsumerWidget {
       darkTheme: darkTheme(),
       themeMode: ThemeMode.system,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: ref.watch(localeProvider),
+      locale: ref.watch<Locale?>(localeProvider),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      home: const Auth(),
+      initialRoute: AppRoutes.authScreen,
+      navigatorKey: AppRouter.navigatorKey,
+      onGenerateRoute: AppRouter.generateRoute,
+      home: const AuthScreen(),
     );
   }
 }
