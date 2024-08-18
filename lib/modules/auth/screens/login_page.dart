@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:whatsapp_clone/auth/controller/auth_controller.dart';
+import 'package:whatsapp_clone/modules/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
 import 'package:whatsapp_clone/common/widgets/custom_elevated_button.dart';
-import 'package:whatsapp_clone/auth/widgets/custom_text_field.dart';
+import 'package:whatsapp_clone/common/widgets/custom_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -134,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
           CustomElevatedButton(
             onPressed: () async {
               AuthController authController = AuthController();
-              await authController.signUpWithPhoneNumber(context,
+              await authController.signUpWithPhone(context,
                   phoneNumber: '+$countryCode$phoneNumber');
             },
             text: 'Next',

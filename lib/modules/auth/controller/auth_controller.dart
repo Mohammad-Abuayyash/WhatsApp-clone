@@ -1,18 +1,21 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/common/providers/current_user.dart';
-import 'package:whatsapp_clone/models/user_model.dart';
-import 'package:whatsapp_clone/user_info_page/user_info_page.dart';
-import 'package:whatsapp_clone/verification/verification_page.dart';
+import 'package:whatsapp_clone/modules/auth/repositories/firebase_storage_repository.dart';
+import 'package:whatsapp_clone/common/utils/snack_bar.dart';
+import 'package:whatsapp_clone/common/models/user_model.dart';
+import 'package:whatsapp_clone/modules/auth/screens/user_info_page.dart';
+import 'package:whatsapp_clone/modules/auth/screens/verification_page.dart';
 
 class AuthController {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
 
-  Future<void> signUpWithPhoneNumber(BuildContext context,
+  Future<void> signUpWithPhone(BuildContext context,
       {required String phoneNumber}) async {
     String verification_id;
     int _resendToken = 0;
@@ -20,7 +23,9 @@ class AuthController {
     try {
       await _auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
-        verificationCompleted: (credential) {},
+        verificationCompleted: (credential) async {
+          await _auth.signInWithCredential(credential);
+        },
         verificationFailed: (FirebaseAuthException e) {
           if (e.code == 'invalid-phone-number') {
             debugPrint('The provided phone number is not valid.');
@@ -63,17 +68,40 @@ class AuthController {
     }
   }
 
-  Future<void> createUser({
-    required UserModel user,
+  Future<void> saveUserToFirebase(
+    BuildContext context, {
+    required String name,
+    required File? profilePic,
     required WidgetRef ref,
   }) async {
     try {
-      debugPrint(user.toMap().toString());
-      ref.watch(CurrentUserProvider.notifier).setUser(user);
-      debugPrint('${user.username} ${user.phoneNumber}');
-      await _firestore.collection('users').doc(user.uid).set(user.toMap());
+      // ref.watch(CurrentUserProvider.notifier).setUser(user);
+      // debugPrint('${user.username} ${user.phoneNumber}');
+
+      String uid = _auth.currentUser!.uid;
+      String photoUrl =
+          'https://png.pngitem.com/pimgs/s/649-6490124_katie-notopoulos-katienotopoulos-i-write-about-tech-round.png';
+
+      if (profilePic != null) {
+        photoUrl = await ref
+            .read(firebaseStorageRepositoryProvider)
+            .storeFileToFirebase(
+              'profilePic/$uid',
+              profilePic,
+            );
+      }
+      var user = UserModel(
+        username: name,
+        uid: _auth.currentUser!.uid,
+        profileImageUrl: photoUrl,
+        active: true,
+        lastSeen: DateTime.now().millisecondsSinceEpoch,
+        phoneNumber: _auth.currentUser!.phoneNumber.toString(),
+        groupId: [],
+      );
+      await _firestore.collection('users').doc(uid).set(user.toMap());
     } catch (e) {
-      debugPrint('createUserError: $e');
+      showSnackBar(context, content: e.toString());
     }
   }
 
@@ -96,20 +124,27 @@ class AuthController {
         // final encrypted = encrypter.encrypt(password, iv: iv);
         // final decrypted = encrypter.decrypt(encrypted, iv: iv);
 
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) {
-              return UserInfoPage(
-                phoneNumber: phoneNumber,
-              );
-            },
-          ),
-        );
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) {
+            return const UserInfoPage();
+          },
+        ));
       } else {
         debugPrint('no user created');
       }
-    } catch (e) {
-      debugPrint('verifyOTP_Error: ${e.toString()}');
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, content: e.message!);
     }
+  }
+
+  Future<UserModel> userData(String userId) async {
+    final doc = await _firestore.collection('users').doc(userId).get();
+    return UserModel.fromMap(doc.data() as Map<String, dynamic>);
+  }
+
+  void setUserState(bool isOnline) async {
+    await _firestore.collection('users').doc(_auth.currentUser!.uid).update(
+      {'isOnline': isOnline},
+    );
   }
 }

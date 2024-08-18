@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/auth.dart';
+import 'package:whatsapp_clone/modules/auth/auth.dart';
 import 'package:whatsapp_clone/common/providers/current_user.dart';
-import 'package:whatsapp_clone/welcome/screens/welcome_page.dart';
+import 'package:whatsapp_clone/modules/welcome/screens/welcome_page.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -19,8 +18,15 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   late String userName;
 
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(CurrentUserProvider.notifier).loadCurrentUser();
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -36,7 +42,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          userInfo!.username,
+          userInfo != null ? userInfo.username : 'user',
           style: const TextStyle(fontSize: 17),
         ),
         centerTitle: true,

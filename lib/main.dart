@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/auth.dart';
+import 'package:whatsapp_clone/modules/auth/auth.dart';
 import 'package:whatsapp_clone/common/providers/locale_provider.dart';
 import 'package:whatsapp_clone/common/theme/dark_theme.dart';
 import 'package:whatsapp_clone/common/theme/light_theme.dart';
-import 'package:whatsapp_clone/home_page/home_page.dart';
-import 'package:whatsapp_clone/welcome/screens/welcome_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:whatsapp_clone/firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     name: 'whatsapp-clone-e5e0f',

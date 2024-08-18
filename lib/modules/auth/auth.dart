@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone/welcome/screens/welcome_page.dart';
-import 'package:whatsapp_clone/home_page/home_page.dart';
+import 'package:whatsapp_clone/modules/welcome/screens/welcome_page.dart';
+import 'package:whatsapp_clone/modules/home_page/home_page.dart';
 
 class Auth extends StatelessWidget {
   /// [Auth] constructor

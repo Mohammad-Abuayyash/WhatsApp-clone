@@ -1,24 +1,16 @@
-import 'dart:typed_data';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/auth/controller/auth_controller.dart';
+import 'package:whatsapp_clone/modules/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/common/providers/image_provider.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
 import 'package:whatsapp_clone/common/widgets/custom_elevated_button.dart';
-import 'package:whatsapp_clone/auth/widgets/custom_text_field.dart';
-import 'package:whatsapp_clone/home_page/home_page.dart';
-import 'package:whatsapp_clone/models/user_model.dart';
+import 'package:whatsapp_clone/common/widgets/custom_text_field.dart';
+import 'package:whatsapp_clone/modules/home_page/home_page.dart';
+import 'package:whatsapp_clone/common/models/user_model.dart';
 
 class UserInfoPage extends ConsumerStatefulWidget {
-  const UserInfoPage({
-    super.key,
-    required this.phoneNumber,
-  });
-
-  final String phoneNumber;
+  const UserInfoPage({super.key});
 
   @override
   ConsumerState<UserInfoPage> createState() => _UserInfoPageState();
@@ -53,7 +45,7 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
             const SizedBox(height: 50),
             InkWell(
               onTap: () async {
-                await imageProv.pickImage();
+                await imageProv.pickImageFromGallery(context);
               },
               child: Container(
                 width: 135,
@@ -65,7 +57,7 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
                   color: kColors.phoneIconBgColorDark,
                   image: DecorationImage(
                     image: image != null
-                        ? FileImage(image!) as ImageProvider
+                        ? FileImage(image) as ImageProvider
                         : const AssetImage("assets/images/circle.png"),
                     fit: BoxFit.fill,
                   ),
@@ -108,17 +100,11 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
             const SizedBox(height: 40),
             CustomElevatedButton(
               onPressed: () async {
-                await AuthController().createUser(
+                await AuthController().saveUserToFirebase(
+                  context,
+                  name: userNameController.text,
+                  profilePic: image,
                   ref: ref,
-                  user: UserModel(
-                    username: userNameController.text,
-                    uid: _auth.currentUser!.uid,
-                    profileImageUrl: image.toString(),
-                    active: true,
-                    lastSeen: DateTime.now().millisecondsSinceEpoch,
-                    phoneNumber: widget.phoneNumber,
-                    groupId: [],
-                  ),
                 );
 
                 if (_auth.currentUser != null) {

@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone/auth/controller/auth_controller.dart';
+import 'package:whatsapp_clone/modules/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
-import 'package:whatsapp_clone/auth/widgets/custom_text_field.dart';
-import 'package:whatsapp_clone/user_info_page/user_info_page.dart';
+import 'package:whatsapp_clone/common/widgets/custom_text_field.dart';
 
 class VerificationPage extends StatefulWidget {
   const VerificationPage({
@@ -80,14 +78,17 @@ class _VerificationPageState extends State<VerificationPage> {
                 keyboardType: TextInputType.number,
                 maxLength: 6,
                 onChanged: (value) async {
-                  AuthController authController = AuthController();
-                  await authController.verifyOTP(
-                    context,
-                    value: value,
-                    phoneNumber: widget.phoneNumber,
-                    verification_id: widget.verification_id,
-                    otp: widget.OTP,
-                  );
+                  if (value.length == 6) {
+                    debugPrint('Verifying OTP');
+                    AuthController authController = AuthController();
+                    await authController.verifyOTP(
+                      context,
+                      value: value,
+                      phoneNumber: widget.phoneNumber.trim(),
+                      verification_id: widget.verification_id,
+                      otp: widget.OTP,
+                    );
+                  }
                 },
               ),
             ),
