@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/modules/auth/controller/auth_controller.dart';
-import 'package:whatsapp_clone/common/utils/colors.dart';
+import 'package:whatsapp_clone/common/utils/app_colors.dart';
 import 'package:whatsapp_clone/common/widgets/custom_text_field.dart';
 
 class VerificationPage extends StatefulWidget {
@@ -56,13 +56,13 @@ class _VerificationPageState extends State<VerificationPage> {
                 text:
                     "You've tried to register ${widget.phoneNumber}, wait before requesting an SMS or call with your call.",
                 style: const TextStyle(
-                  color: kColors.greyDark,
+                  color: AppColors.greyDark,
                   height: 1.5,
                 ),
                 children: const [
                   TextSpan(
                     text: '\nWrong number?',
-                    style: TextStyle(color: kColors.blueDark),
+                    style: TextStyle(color: AppColors.blueDark),
                   ),
                 ],
               ),
@@ -95,38 +95,38 @@ class _VerificationPageState extends State<VerificationPage> {
             const SizedBox(height: 20),
             const Text(
               'Enter 6-digit code',
-              style: TextStyle(color: kColors.greyDark),
+              style: TextStyle(color: AppColors.greyDark),
             ),
             const SizedBox(height: 40),
             const Row(
               children: [
                 Icon(
                   Icons.message,
-                  color: kColors.greyDark,
+                  color: AppColors.greyDark,
                 ),
                 SizedBox(width: 20),
                 Text(
                   'Resend SMS',
                   style: TextStyle(
-                    color: kColors.greyDark,
+                    color: AppColors.greyDark,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            Divider(color: kColors.blueDark.withOpacity(0.2)),
+            Divider(color: AppColors.blueDark.withOpacity(0.2)),
             const SizedBox(height: 10),
             const Row(
               children: [
                 Icon(
                   Icons.phone,
-                  color: kColors.greyDark,
+                  color: AppColors.greyDark,
                 ),
                 SizedBox(width: 20),
                 Text(
                   'Call me',
                   style: TextStyle(
-                    color: kColors.greyDark,
+                    color: AppColors.greyDark,
                   ),
                 ),
               ],

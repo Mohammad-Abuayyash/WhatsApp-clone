@@ -95,7 +95,6 @@ class AuthController {
         uid: _auth.currentUser!.uid,
         profileImageUrl: photoUrl,
         active: true,
-        lastSeen: DateTime.now().millisecondsSinceEpoch,
         phoneNumber: _auth.currentUser!.phoneNumber.toString(),
         groupId: [],
       );

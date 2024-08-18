@@ -5,7 +5,7 @@ import 'package:whatsapp_clone/modules/auth/auth.dart';
 import 'package:whatsapp_clone/modules/auth/screens/login_screen/login_page.dart';
 import 'package:whatsapp_clone/modules/auth/screens/user_info_page/user_info_page.dart';
 import 'package:whatsapp_clone/modules/auth/screens/verification_screen/verification_page.dart';
-import 'package:whatsapp_clone/modules/home_page/home_page.dart';
+import 'package:whatsapp_clone/modules/home_page/screen/home_page.dart';
 import 'package:whatsapp_clone/modules/welcome/screens/welcome_page.dart';
 
 class AppRouter {

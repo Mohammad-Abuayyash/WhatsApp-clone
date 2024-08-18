@@ -5,10 +5,10 @@ import 'package:whatsapp_clone/common/models/app_router.dart';
 import 'package:whatsapp_clone/common/models/app_routes.dart';
 import 'package:whatsapp_clone/modules/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/common/providers/image_provider.dart';
-import 'package:whatsapp_clone/common/utils/colors.dart';
+import 'package:whatsapp_clone/common/utils/app_colors.dart';
 import 'package:whatsapp_clone/common/widgets/custom_elevated_button.dart';
 import 'package:whatsapp_clone/common/widgets/custom_text_field.dart';
-import 'package:whatsapp_clone/modules/home_page/home_page.dart';
+import 'package:whatsapp_clone/modules/home_page/screen/home_page.dart';
 import 'package:whatsapp_clone/common/models/user_model.dart';
 
 class UserInfoPage extends ConsumerStatefulWidget {
@@ -42,7 +42,7 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
           children: [
             const Text(
               'Please provide your name and an optional profile photo',
-              style: TextStyle(color: kColors.greyDark),
+              style: TextStyle(color: AppColors.greyDark),
             ),
             const SizedBox(height: 50),
             InkWell(
@@ -56,7 +56,7 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
                 padding: const EdgeInsets.all(26),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: kColors.phoneIconBgColorDark,
+                  color: AppColors.phoneIconBgColorDark,
                   image: DecorationImage(
                     image: image != null
                         ? FileImage(image) as ImageProvider
@@ -69,7 +69,7 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
                   child: image == null
                       ? const Icon(
                           Icons.add_a_photo_rounded,
-                          color: kColors.phoneIconColorDark,
+                          color: AppColors.phoneIconColorDark,
                           size: 48,
                         )
                       : null,
@@ -92,7 +92,7 @@ class _UserInfoPageState extends ConsumerState<UserInfoPage> {
                 const SizedBox(width: 10),
                 const Icon(
                   Icons.emoji_emotions_outlined,
-                  color: kColors.phoneIconColorDark,
+                  color: AppColors.phoneIconColorDark,
                 ),
                 const SizedBox(
                   width: 20,

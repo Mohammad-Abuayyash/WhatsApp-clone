@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:whatsapp_clone/common/utils/colors.dart';
+import 'package:whatsapp_clone/common/utils/app_colors.dart';
 
 ThemeData darkTheme() {
   final ThemeData base = ThemeData.dark();
 
   return base.copyWith(
-    scaffoldBackgroundColor: kColors.backgroundDark,
+    scaffoldBackgroundColor: AppColors.backgroundDark,
     colorScheme: const ColorScheme.dark(
-      surface: kColors.backgroundDark,
+      surface: AppColors.backgroundDark,
       brightness: Brightness.dark,
     ),
     appBarTheme: const AppBarTheme(
@@ -19,16 +19,16 @@ ThemeData darkTheme() {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: kColors.greenDark,
-        foregroundColor: kColors.backgroundDark,
+        backgroundColor: AppColors.greenDark,
+        foregroundColor: AppColors.backgroundDark,
         splashFactory: NoSplash.splashFactory,
         elevation: 0,
         shadowColor: Colors.transparent,
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: kColors.backgroundDark,
-      modalBackgroundColor: kColors.backgroundDark,
+      backgroundColor: AppColors.backgroundDark,
+      modalBackgroundColor: AppColors.backgroundDark,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(20),

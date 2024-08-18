@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/common/models/app_router.dart';
 import 'package:whatsapp_clone/common/models/app_routes.dart';
-import 'package:whatsapp_clone/modules/auth/auth.dart';
+import 'package:whatsapp_clone/common/providers/locale_provider.dart';
+import 'package:whatsapp_clone/common/utils/app_colors.dart';
+import 'package:whatsapp_clone/common/widgets/bottom_nav_bar.dart';
 import 'package:whatsapp_clone/common/providers/current_user.dart';
-import 'package:whatsapp_clone/modules/welcome/screens/welcome_page.dart';
+import 'package:whatsapp_clone/modules/home_page/widgets/chat_type_button.dart';
+import 'package:whatsapp_clone/modules/home_page/widgets/new_chat_list_tile.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -21,6 +24,77 @@ class _HomePageState extends ConsumerState<HomePage> {
   late String userName;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  showButtomSheet(context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          final localeProv = ref.read(localeProvider.notifier);
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Center(child: Text('New chat')),
+                const SizedBox(height: 20),
+                TextField(
+                  onChanged: null,
+                  onTap: () {
+                    _focusNode.requestFocus();
+                  },
+                  focusNode: _focusNode,
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    prefixIcon: const Icon(Icons.search),
+                    contentPadding: EdgeInsets.zero,
+                    fillColor: const Color.fromRGBO(50, 50, 50, 0.8),
+                    filled: true,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.greyBackground,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+                  child: const Column(
+                    children: [
+                      NewChatListTile(
+                        icon: Icons.people,
+                        title: 'New group',
+                      ),
+                      NewChatListTile(
+                        icon: Icons.group_add_rounded,
+                        title: 'New contact',
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.greyBackground,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+                  child: const Column(
+                    children: [Text('No contacts found')],
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
 
   @override
   void initState() {
@@ -53,29 +127,22 @@ class _HomePageState extends ConsumerState<HomePage> {
             shape: BoxShape.circle,
           ),
           child: IconButton(
-            onPressed: () {
-              _auth.signOut();
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const WelcomePage();
-                  },
-                ),
-              );
-            },
+            onPressed: () {},
             icon: const Icon(
               Icons.more_horiz_outlined,
               color: Colors.white,
             ),
           ),
         ),
-        actions: const [
-          Icon(Icons.camera_alt_rounded, size: 25, color: Colors.white),
-          SizedBox(width: 20),
+        actions: [
+          const Icon(Icons.camera_alt_rounded, size: 25, color: Colors.white),
+          const SizedBox(width: 20),
           Padding(
-            padding: EdgeInsets.only(right: 10),
-            child: Icon(Icons.add_circle,
-                size: 33, color: Color.fromARGB(255, 58, 241, 144)),
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+                onPressed: () => showButtomSheet(context),
+                icon: const Icon(Icons.add_circle,
+                    size: 33, color: Color.fromARGB(255, 58, 241, 144))),
           ),
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -177,40 +244,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.update)),
-        BottomNavigationBarItem(icon: Icon(Icons.call_sharp)),
-        BottomNavigationBarItem(icon: Icon(Icons.people_outline)),
-        BottomNavigationBarItem(icon: Icon(Icons.chat)),
-        BottomNavigationBarItem(icon: Icon(Icons.settings_outlined)),
-      ]),
-    );
-  }
-}
-
-class ChatTypeButton extends StatelessWidget {
-  const ChatTypeButton({
-    super.key,
-    required this.title,
-  });
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: null,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(50, 50, 50, 0.8),
-          borderRadius: BorderRadius.circular(24),
-        ),
-        child: Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.w600),
-        ),
-      ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

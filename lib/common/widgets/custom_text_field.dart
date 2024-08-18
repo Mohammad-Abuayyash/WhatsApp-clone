@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone/common/utils/colors.dart';
+import 'package:whatsapp_clone/common/utils/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -50,12 +50,12 @@ class CustomTextField extends StatelessWidget {
         prefixText: prefixText,
         suffix: suffixIcon,
         hintText: hintText,
-        hintStyle: const TextStyle(color: kColors.greyDark),
+        hintStyle: const TextStyle(color: AppColors.greyDark),
         enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: kColors.greenDark),
+          borderSide: BorderSide(color: AppColors.greenDark),
         ),
         focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: kColors.greenDark, width: 2),
+          borderSide: BorderSide(color: AppColors.greenDark, width: 2),
         ),
       ),
     );

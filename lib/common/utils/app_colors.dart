@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 // ignore: camel_case_types
-class kColors {
-  kColors._();
+class AppColors {
+  AppColors._();
 
   static const Color greenDark = Color(0xff00a884);
   static const Color greenLight = Color(0xff008069);
