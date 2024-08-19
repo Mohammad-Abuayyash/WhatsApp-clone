@@ -136,6 +136,7 @@ class _LoginPageState extends State<LoginPage> {
               AuthController authController = AuthController();
               await authController.signUpWithPhone(context,
                   phoneNumber: '+$countryCode$phoneNumber');
+              FocusScope.of(context).unfocus();
             },
             text: 'Next',
             buttonWidth: MediaQuery.of(context).size.width * 0.4,

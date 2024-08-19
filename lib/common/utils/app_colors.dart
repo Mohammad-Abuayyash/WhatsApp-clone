@@ -20,4 +20,7 @@ class AppColors {
 
   static const Color phoneIconColorDark = Color(0xff61717b);
   static const Color phoneIconBgColorDark = Color(0xff283339);
+
+  static const Color myMessageGreen = Color.fromARGB(255, 19, 77, 55);
+  static const Color otherMessageGrey = Color.fromARGB(255, 35, 38, 38);
 }

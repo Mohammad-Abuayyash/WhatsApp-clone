@@ -6,4 +6,5 @@ class AppRoutes {
   static const String userInfoScreen = '/userInfoScreen';
   static const String homeScreen = '/homeScreen';
   static const String errorScreen = '/errorScreen';
+  static const String chatScreen = '/chatScreen';
 }

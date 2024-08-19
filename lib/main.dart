@@ -11,6 +11,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:whatsapp_clone/firebase_options.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -39,7 +41,7 @@ class MainApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       initialRoute: AppRoutes.authScreen,
-      navigatorKey: AppRouter.navigatorKey,
+      navigatorKey: navigatorKey,
       onGenerateRoute: AppRouter.generateRoute,
       home: const AuthScreen(),
     );

@@ -3,8 +3,8 @@ import 'package:whatsapp_clone/common/models/app_router.dart';
 import 'package:whatsapp_clone/common/models/app_routes.dart';
 import 'package:whatsapp_clone/common/utils/app_colors.dart';
 import 'package:whatsapp_clone/common/widgets/custom_elevated_button.dart';
-import 'package:whatsapp_clone/modules/welcome/widgets/language_button.dart';
-import 'package:whatsapp_clone/modules/welcome/widgets/privacy_and_terms.dart';
+import 'package:whatsapp_clone/modules/screens/welcome/widgets/language_button.dart';
+import 'package:whatsapp_clone/modules/screens/welcome/widgets/privacy_and_terms.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomePage extends StatelessWidget {

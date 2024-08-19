@@ -5,10 +5,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/common/models/app_router.dart';
+import 'package:whatsapp_clone/common/models/app_routes.dart';
+import 'package:whatsapp_clone/main.dart';
 import 'package:whatsapp_clone/modules/auth/repositories/firebase_storage_repository.dart';
 import 'package:whatsapp_clone/common/utils/snack_bar.dart';
 import 'package:whatsapp_clone/common/models/user_model.dart';
-import 'package:whatsapp_clone/modules/auth/screens/user_info_page/user_info_page.dart';
 import 'package:whatsapp_clone/modules/auth/screens/verification_screen/verification_page.dart';
 
 class AuthController {
@@ -38,7 +40,6 @@ class AuthController {
         },
         codeSent: (String verificationId, int? resendToken) async {
           verification_id = verificationId;
-          _resendToken = resendToken!;
           debugPrint('code is sent');
 
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -64,7 +65,8 @@ class AuthController {
         forceResendingToken: _resendToken,
       );
     } catch (e) {
-      debugPrint('signUpWithPhoneNumberError: ${e.toString()}');
+      showSnackBar(context,
+          content: 'signUpWithPhoneNumberError: ${e.toString()}');
     }
   }
 
@@ -96,7 +98,6 @@ class AuthController {
         profileImageUrl: photoUrl,
         active: true,
         phoneNumber: _auth.currentUser!.phoneNumber.toString(),
-        groupId: [],
       );
       await _firestore.collection('users').doc(uid).set(user.toMap());
     } catch (e) {
@@ -123,11 +124,7 @@ class AuthController {
         // final encrypted = encrypter.encrypt(password, iv: iv);
         // final decrypted = encrypter.decrypt(encrypted, iv: iv);
 
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) {
-            return const UserInfoPage();
-          },
-        ));
+        AppRouter.pushReplacement(AppRoutes.userInfoScreen);
       } else {
         debugPrint('no user created');
       }
@@ -145,5 +142,21 @@ class AuthController {
     await _firestore.collection('users').doc(_auth.currentUser!.uid).update(
       {'isOnline': isOnline},
     );
+  }
+
+  void sendMessage(
+      String senderId, String receiverId, String messageText) async {
+    try {
+      await _firestore.collection('messages').add({
+        'senderId': senderId,
+        'receiverId': receiverId,
+        'messageText': messageText,
+        'timestamp': FieldValue.serverTimestamp(),
+        'status': 'sent',
+      });
+    } catch (e) {
+      showSnackBar(navigatorKey.currentContext!,
+          content: 'Error why sending the message');
+    }
   }
 }

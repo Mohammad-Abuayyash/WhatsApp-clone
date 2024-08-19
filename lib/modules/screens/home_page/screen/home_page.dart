@@ -1,14 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/common/models/app_router.dart';
 import 'package:whatsapp_clone/common/models/app_routes.dart';
+import 'package:whatsapp_clone/common/models/user_model.dart';
 import 'package:whatsapp_clone/common/providers/locale_provider.dart';
 import 'package:whatsapp_clone/common/utils/app_colors.dart';
+import 'package:whatsapp_clone/common/utils/snack_bar.dart';
 import 'package:whatsapp_clone/common/widgets/bottom_nav_bar.dart';
 import 'package:whatsapp_clone/common/providers/current_user.dart';
-import 'package:whatsapp_clone/modules/home_page/widgets/chat_type_button.dart';
-import 'package:whatsapp_clone/modules/home_page/widgets/new_chat_list_tile.dart';
+import 'package:whatsapp_clone/main.dart';
+import 'package:whatsapp_clone/modules/screens/home_page/widgets/chat_type_button.dart';
+import 'package:whatsapp_clone/modules/screens/home_page/widgets/new_chat_list_tile.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -25,7 +29,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  showButtomSheet(context) {
+  showButtomSheet(context, String userName) {
     return showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -38,7 +42,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 const Center(child: Text('New chat')),
                 const SizedBox(height: 20),
                 TextField(
-                  onChanged: null,
+                  onChanged: (value) {},
                   onTap: () {
                     _focusNode.requestFocus();
                   },
@@ -79,15 +83,66 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.greyBackground,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-                  child: const Column(
-                    children: [Text('No contacts found')],
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.greyBackground,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+                    child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+
+                        List<DocumentSnapshot> docs = snapshot.data!.docs;
+
+                        return ListView.builder(
+                            itemCount: docs.length,
+                            itemBuilder: (context, index) {
+                              var user = docs[index];
+                              debugPrint("$userName + ${user['username']}");
+                              // if (user['username'].toString().trim() ==
+                              //     userName.toString().trim()) {
+                              return ListTile(
+                                dense: true,
+                                contentPadding: EdgeInsets.zero,
+                                leading: CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(user['profileImageUrl']),
+                                  radius: 15,
+                                ),
+                                title: Text(user['username']),
+                                subtitle: Text(user['phoneNumber']),
+                                onTap: () async {
+                                  try {
+                                    final DocumentSnapshot userDoc =
+                                        await FirebaseFirestore.instance
+                                            .collection('users')
+                                            .doc(user['uid'])
+                                            .get();
+                                    UserModel receiver = UserModel.fromMap(
+                                        userDoc.data() as Map<String, dynamic>);
+                                    AppRouter.push(AppRoutes.chatScreen,
+                                        arguments: receiver);
+                                  } catch (e) {
+                                    showSnackBar(context,
+                                        content: e.toString());
+                                  }
+                                },
+                              );
+                            }
+                            //},
+                            );
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -140,7 +195,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
-                onPressed: () => showButtomSheet(context),
+                onPressed: () => showButtomSheet(context, userInfo!.username),
                 icon: const Icon(Icons.add_circle,
                     size: 33, color: Color.fromARGB(255, 58, 241, 144))),
           ),
